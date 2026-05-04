@@ -27,11 +27,6 @@ from src.utils.password import hash_password
 async def create_user(body: CreateUserRequest, db: AsyncSession):
     user_account = await has_user_account_db(db, email=body.email)
     if not user_account or not user_account.email_verified:
-        if body.password != body.password2:
-            app_logger.warning(
-                "Password mismatch during registration", extra={"tags": {"email": body.email}}
-            )
-            raise HTTPException(status_code=400, detail="Incorrect password")
         hashed_password = hash_password(body.password)
         if not user_account:
             user_created = await create_user_db(body.email, hashed_password, db)
