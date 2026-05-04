@@ -37,3 +37,8 @@ known-first-party = ["src"]
 
 [tool.ruff.format]
 quote-style = "double"
+
+[dependency-groups]
+dev = [
+    "pre-commit>=4.6.0",
+]
