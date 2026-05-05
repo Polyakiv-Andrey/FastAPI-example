@@ -1,8 +1,8 @@
 """create_otp_table_and_user_table
 
-Revision ID: 95ee546960be
-Revises: 
-Create Date: 2026-05-03 19:02:02.743627
+Revision ID: ed61b567789a
+Revises:
+Create Date: 2026-05-05 20:03:57.064199
 
 """
 from typing import Sequence, Union
@@ -12,7 +12,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision: str = '95ee546960be'
+revision: str = 'ed61b567789a'
 down_revision: Union[str, Sequence[str], None] = None
 branch_labels: Union[str, Sequence[str], None] = None
 depends_on: Union[str, Sequence[str], None] = None
@@ -27,6 +27,7 @@ def upgrade() -> None:
     sa.Column('is_used', sa.Boolean(), nullable=False),
     sa.Column('expires_at', sa.DateTime(timezone=True), nullable=False),
     sa.Column('attempts_left', sa.Integer(), nullable=False),
+    sa.Column('otp_type', sa.Enum('register', name='otptype'), nullable=False),
     sa.Column('id', sa.Uuid(), server_default=sa.text('gen_random_uuid()'), nullable=False),
     sa.Column('created_at', sa.DateTime(timezone=True), server_default=sa.text('now()'), nullable=False),
     sa.Column('updated_at', sa.DateTime(timezone=True), server_default=sa.text('now()'), nullable=False),
